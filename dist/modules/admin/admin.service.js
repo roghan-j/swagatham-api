@@ -29,30 +29,35 @@ let AdminService = class AdminService {
         this.configService = configService;
     }
     async login(loginAdminDto) {
-        const admin = await this.adminRepository.findOne({
-            where: {
-                phone: loginAdminDto.phone
-            }, select: [
-                "id",
-                "username",
-                "phone",
-                "password"
-            ]
-        });
-        if (!admin)
-            throw new common_1.HttpException("Invalid Credentials", common_1.HttpStatus.BAD_REQUEST);
-        const isMatch = await bcrypt_1.default.compare(loginAdminDto.password.trim(), admin.password.trim());
-        delete admin.password;
-        if (isMatch) {
-            const token = jsonwebtoken_1.default.sign({
-                id: admin.id,
-                mobile: admin.phone,
-                username: admin.username
-            }, this.configService.get('JWT_SECRET'));
-            return Object.assign(Object.assign({}, admin), { token });
+        try {
+            const admin = await this.adminRepository.findOne({
+                where: {
+                    phone: loginAdminDto.phone
+                }, select: [
+                    "id",
+                    "username",
+                    "phone",
+                    "password"
+                ]
+            });
+            if (!admin)
+                throw new common_1.HttpException("Invalid Credentials", common_1.HttpStatus.BAD_REQUEST);
+            const isMatch = await bcrypt_1.default.compare(loginAdminDto.password.trim(), admin.password.trim());
+            delete admin.password;
+            if (isMatch) {
+                const token = jsonwebtoken_1.default.sign({
+                    id: admin.id,
+                    mobile: admin.phone,
+                    username: admin.username
+                }, this.configService.get('JWT_SECRET'));
+                return Object.assign(Object.assign({}, admin), { token });
+            }
+            else {
+                throw new common_1.HttpException("Invalid Credentials", common_1.HttpStatus.BAD_REQUEST);
+            }
         }
-        else {
-            throw new common_1.HttpException("Invalid Credentials", common_1.HttpStatus.BAD_REQUEST);
+        catch (e) {
+            throw e;
         }
     }
     async getUserById(id) {
@@ -64,7 +69,7 @@ let AdminService = class AdminService {
             });
         }
         catch (e) {
-            console.log(e);
+            throw e;
         }
     }
     async createNewAdmin(createAdminDto, req) {
@@ -79,7 +84,7 @@ let AdminService = class AdminService {
                 throw new common_1.HttpException("User Already Exists", common_1.HttpStatus.BAD_REQUEST);
             Object.assign(admin, createAdminDto);
             admin.createdBy = req.admin.username;
-            await this.adminRepository.save(admin);
+            return await this.adminRepository.save(admin);
         }
         catch (e) {
             throw e;

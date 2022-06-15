@@ -11,5 +11,5 @@ export declare class AdminService {
     constructor(adminRepository: Repository<AdminEntity>, configService: ConfigService);
     login(loginAdminDto: LoginAdminDto): Promise<AdminInterface>;
     getUserById(id: number): Promise<AdminEntity>;
-    createNewAdmin(createAdminDto: CreateAdminDto, req: ExpressRequest): Promise<any>;
+    createNewAdmin(createAdminDto: CreateAdminDto, req: ExpressRequest): Promise<AdminEntity>;
 }
