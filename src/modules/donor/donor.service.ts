@@ -37,7 +37,7 @@ export class DonorService {
       })
       return savedKyc
     } catch (e) {
-      console.log(e)
+      throw e
     }
   }
 
