@@ -31,13 +31,14 @@ let DonorService = class DonorService {
         try {
             const kyc = new kyc_entity_1.KycEntity();
             Object.assign(kyc, createKycDto);
+            const savedKyc = await this.kycRepository.save(kyc);
             const donor = await this.createNewDonor({
                 name: createKycDto.name,
                 mobile: createKycDto.mobile,
                 dob: createKycDto.dob,
                 kyc: kyc
             });
-            return await this.kycRepository.save(kyc);
+            return savedKyc;
         }
         catch (e) {
             console.log(e);
