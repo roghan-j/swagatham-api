@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { create } from "domain";
 import { Repository } from "typeorm";
@@ -19,6 +19,13 @@ export class DonorService {
 
   async createNewKyc(createKycDto: CreateKycDto): Promise<KycEntity> {
     try {
+      const isKycExist = await this.kycRepository.findOne({
+        where: {
+          mobile: createKycDto.mobile
+        }
+      })
+      if (isKycExist)
+        throw new HttpException("KYC Already exists!", HttpStatus.FOUND)
       const kyc = new KycEntity()
       Object.assign(kyc, createKycDto)
       const savedKyc = await this.kycRepository.save(kyc)
