@@ -61,11 +61,18 @@ export class AdminService {
   async createNewAdmin(createAdminDto: CreateAdminDto, req: ExpressRequest): Promise<any> {
     try {
       const admin = new AdminEntity()
+      const isMobileExists = await this.adminRepository.findOne({
+        where: {
+          phone: createAdminDto.phone
+        }
+      })
+      if (isMobileExists)
+        throw new HttpException("User Already Exists", HttpStatus.BAD_REQUEST)
       Object.assign(admin, createAdminDto)
       admin.createdBy = req.admin.username
       await this.adminRepository.save(admin)
     } catch (e) {
-      console.log(e)
+      throw e
     }
   }
 }
