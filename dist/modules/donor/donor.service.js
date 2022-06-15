@@ -31,13 +31,13 @@ let DonorService = class DonorService {
         try {
             const kyc = new kyc_entity_1.KycEntity();
             Object.assign(kyc, createKycDto);
-            const kycc = this.kycRepository.save(kyc);
-            const donor = await this.createNewDonor({
+            await this.createNewDonor({
                 name: createKycDto.name,
                 mobile: createKycDto.mobile,
-                dob: createKycDto.dob
+                dob: createKycDto.dob,
+                kyc: kyc
             });
-            return kycc;
+            return await this.kycRepository.save(kyc);
         }
         catch (e) {
             console.log(e);
@@ -46,13 +46,7 @@ let DonorService = class DonorService {
     async createNewDonor(createDonorDto) {
         try {
             const donor = new donor_entity_1.DonorEntity();
-            const kyc = await this.kycRepository.findOne({
-                where: {
-                    mobile: createDonorDto.mobile
-                }
-            });
             Object.assign(donor, createDonorDto);
-            donor.kyc = kyc;
             await this.donorRepository.save(donor);
             return donor;
         }
