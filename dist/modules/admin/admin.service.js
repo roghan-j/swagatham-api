@@ -67,6 +67,17 @@ let AdminService = class AdminService {
             console.log(e);
         }
     }
+    async createNewAdmin(createAdminDto, req) {
+        try {
+            const admin = new admin_entity_1.AdminEntity();
+            Object.assign(admin, createAdminDto);
+            admin.createdBy = req.admin.username;
+            await this.adminRepository.save(admin);
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
 };
 AdminService = __decorate([
     (0, common_1.Injectable)(),
