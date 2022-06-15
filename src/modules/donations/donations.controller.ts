@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
 import { AuthGuard } from "src/guards/auth.guard";
 import { DonationInterface } from "src/types/donation.interface";
 import { DonationEntity } from "./donations.entity";
@@ -22,6 +22,7 @@ export class DonationsController {
   }
 
   @Post('api/donation')
+  @UsePipes(new ValidationPipe())
   async createNewDonation(@Body() createDonationDto: CreateDonationDto): Promise<DonationEntity> {
     return await this.donationService.createNewDonations(createDonationDto)
   }

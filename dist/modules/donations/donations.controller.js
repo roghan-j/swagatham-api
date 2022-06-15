@@ -47,6 +47,7 @@ __decorate([
 ], DonationsController.prototype, "getRecentDonations", null);
 __decorate([
     (0, common_1.Post)('api/donation'),
+    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [createDonation_dto_1.CreateDonationDto]),
