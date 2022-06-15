@@ -5,7 +5,7 @@ import { Admin, Repository } from "typeorm";
 import { AdminEntity } from "./admin.entity";
 import { LoginAdminDto } from "./dto/loginAdmin.dto";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
 import { AdminInterface } from "src/types/admin.interface";
 import { CreateAdminDto } from "./dto/createAdmin.dto";
 import { ExpressRequest } from "src/types/ExpressRequest.interface";
