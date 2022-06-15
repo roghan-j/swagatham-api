@@ -34,10 +34,6 @@ __decorate([
     __metadata("design:type", String)
 ], AdminEntity.prototype, "password", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], AdminEntity.prototype, "createdBy", void 0);
-__decorate([
     (0, typeorm_1.BeforeInsert)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

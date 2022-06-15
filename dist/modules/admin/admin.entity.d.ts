@@ -3,6 +3,5 @@ export declare class AdminEntity {
     username: string;
     phone: string;
     password: string;
-    createdBy: string;
     hashPassword(): Promise<void>;
 }

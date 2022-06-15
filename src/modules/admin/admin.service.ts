@@ -9,7 +9,6 @@ import jwt from "jsonwebtoken";
 import { AdminInterface } from "src/types/admin.interface";
 import { CreateAdminDto } from "./dto/createAdmin.dto";
 import { ExpressRequest } from "src/types/ExpressRequest.interface";
-import { create } from "domain";
 
 @Injectable()
 export class AdminService {
@@ -62,18 +61,11 @@ export class AdminService {
   async createNewAdmin(createAdminDto: CreateAdminDto, req: ExpressRequest): Promise<any> {
     try {
       const admin = new AdminEntity()
-      const isMobileExists = await this.adminRepository.findOne({
-        where: {
-          phone: createAdminDto.phone
-        }
-      })
-      if (isMobileExists)
-        throw new HttpException("User Already Exists", HttpStatus.BAD_REQUEST)
       Object.assign(admin, createAdminDto)
       admin.createdBy = req.admin.username
       await this.adminRepository.save(admin)
     } catch (e) {
-      throw e
+      console.log(e)
     }
   }
 }

@@ -14,20 +14,15 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminController = void 0;
 const common_1 = require("@nestjs/common");
-const auth_guard_1 = require("../../guards/auth.guard");
 const notAuth_guard_1 = require("../../guards/notAuth.guard");
 const admin_service_1 = require("./admin.service");
 const loginAdmin_dto_1 = require("./dto/loginAdmin.dto");
-const createAdmin_dto_1 = require("./dto/createAdmin.dto");
 let AdminController = class AdminController {
     constructor(adminService) {
         this.adminService = adminService;
     }
     async login(loginAdminDto) {
         return await this.adminService.login(loginAdminDto);
-    }
-    async createNewAdmin(createAdminDto, req) {
-        return await this.adminService.createNewAdmin(createAdminDto, req);
     }
 };
 __decorate([
@@ -39,16 +34,6 @@ __decorate([
     __metadata("design:paramtypes", [loginAdmin_dto_1.LoginAdminDto]),
     __metadata("design:returntype", Promise)
 ], AdminController.prototype, "login", null);
-__decorate([
-    (0, common_1.Post)('api/admin'),
-    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
-    __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Req)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [createAdmin_dto_1.CreateAdminDto, Object]),
-    __metadata("design:returntype", Promise)
-], AdminController.prototype, "createNewAdmin", null);
 AdminController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [admin_service_1.AdminService])

@@ -67,24 +67,6 @@ let AdminService = class AdminService {
             console.log(e);
         }
     }
-    async createNewAdmin(createAdminDto, req) {
-        try {
-            const admin = new admin_entity_1.AdminEntity();
-            const isMobileExists = await this.adminRepository.findOne({
-                where: {
-                    phone: createAdminDto.phone
-                }
-            });
-            if (isMobileExists)
-                throw new common_1.HttpException("User Already Exists", common_1.HttpStatus.BAD_REQUEST);
-            Object.assign(admin, createAdminDto);
-            admin.createdBy = req.admin.username;
-            await this.adminRepository.save(admin);
-        }
-        catch (e) {
-            throw e;
-        }
-    }
 };
 AdminService = __decorate([
     (0, common_1.Injectable)(),
