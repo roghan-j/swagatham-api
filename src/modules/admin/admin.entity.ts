@@ -1,5 +1,5 @@
 import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { hash } from "bcrypt";
+import { hash } from "bcrypt"
 
 @Entity({ name: "admins" })
 export class AdminEntity {
@@ -14,6 +14,9 @@ export class AdminEntity {
 
   @Column({ select: false })
   password: string
+
+  @Column()
+  createdBy: string
 
   @BeforeInsert()
   async hashPassword() {

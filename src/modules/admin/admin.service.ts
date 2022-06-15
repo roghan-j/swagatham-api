@@ -7,6 +7,8 @@ import { LoginAdminDto } from "./dto/loginAdmin.dto";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { AdminInterface } from "src/types/admin.interface";
+import { CreateAdminDto } from "./dto/createAdmin.dto";
+import { ExpressRequest } from "src/types/ExpressRequest.interface";
 
 @Injectable()
 export class AdminService {
@@ -51,6 +53,17 @@ export class AdminService {
           id
         }
       })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  async createNewAdmin(createAdminDto: CreateAdminDto, req: ExpressRequest): Promise<any> {
+    try {
+      const admin = new AdminEntity()
+      Object.assign(admin, createAdminDto)
+      admin.createdBy = req.admin.username
+      await this.adminRepository.save(admin)
     } catch (e) {
       console.log(e)
     }
