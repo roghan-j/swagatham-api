@@ -26,4 +26,9 @@ export class DonorController {
   async createDonor(@Body() createDonorDto: CreateDonorDto): Promise<DonorEntity> {
     return await this.donorService.createNewDonor(createDonorDto)
   }
+
+  @Get('api/getDonorsByDob')
+  async filterDonor() {
+    return await this.donorService.filterDonors()
+  }
 }

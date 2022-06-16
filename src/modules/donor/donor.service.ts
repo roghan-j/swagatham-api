@@ -7,6 +7,7 @@ import { DonorEntity } from "./donor.entity";
 import { CreateDonorDto } from "./dto/createDonor.dto";
 import { CreateKycDto } from "./dto/createKyc.dto";
 import { KycEntity } from "./kyc.entity";
+import appDataSource from "src/datasource";
 
 @Injectable()
 export class DonorService {
@@ -61,6 +62,24 @@ export class DonorService {
       })
     } catch (e) {
       console.log(e)
+    }
+  }
+
+  async filterDonors(): Promise<DonorEntity[]> {
+    try {
+      const today = new Date();
+      let date = today.getDate().toString()
+      let month = (today.getMonth() + 1).toString()
+      if (month.length === 1) {
+        month = "0" + month
+      }
+      if (date.length === 1) {
+        date = "0" + date
+      }
+      const allDonors = await appDataSource.createQueryBuilder().select("donor").from(DonorEntity, "donor").where("dob like :dob", { dob: `%-${month}-${date}`.trim() }).getMany()
+      return allDonors
+    } catch (e) {
+      throw e
     }
   }
 }
