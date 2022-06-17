@@ -29,6 +29,13 @@ let DonorService = class DonorService {
     }
     async createNewKyc(createKycDto) {
         try {
+            const isKycExist = await this.kycRepository.findOne({
+                where: {
+                    mobile: createKycDto.mobile
+                }
+            });
+            if (isKycExist)
+                throw new common_1.HttpException("KYC Already exists!", common_1.HttpStatus.FOUND);
             const kyc = new kyc_entity_1.KycEntity();
             Object.assign(kyc, createKycDto);
             const savedKyc = await this.kycRepository.save(kyc);
@@ -41,7 +48,7 @@ let DonorService = class DonorService {
             return savedKyc;
         }
         catch (e) {
-            console.log(e);
+            throw e;
         }
     }
     async createNewDonor(createDonorDto) {

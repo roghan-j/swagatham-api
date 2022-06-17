@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { create } from "domain";
 import { Repository } from "typeorm";
@@ -7,6 +7,7 @@ import { DonorEntity } from "./donor.entity";
 import { CreateDonorDto } from "./dto/createDonor.dto";
 import { CreateKycDto } from "./dto/createKyc.dto";
 import { KycEntity } from "./kyc.entity";
+import appDataSource from "src/datasource";
 
 @Injectable()
 export class DonorService {
@@ -19,6 +20,13 @@ export class DonorService {
 
   async createNewKyc(createKycDto: CreateKycDto): Promise<KycEntity> {
     try {
+      const isKycExist = await this.kycRepository.findOne({
+        where: {
+          mobile: createKycDto.mobile
+        }
+      })
+      if (isKycExist)
+        throw new HttpException("KYC Already exists!", HttpStatus.FOUND)
       const kyc = new KycEntity()
       Object.assign(kyc, createKycDto)
       const savedKyc = await this.kycRepository.save(kyc)
@@ -30,7 +38,7 @@ export class DonorService {
       })
       return savedKyc
     } catch (e) {
-      console.log(e)
+      throw e
     }
   }
 
@@ -54,6 +62,24 @@ export class DonorService {
       })
     } catch (e) {
       console.log(e)
+    }
+  }
+
+  async filterDonors(): Promise<DonorEntity[]> {
+    try {
+      const today = new Date();
+      let date = today.getDate().toString()
+      let month = (today.getMonth() + 1).toString()
+      if (month.length === 1) {
+        month = "0" + month
+      }
+      if (date.length === 1) {
+        date = "0" + date
+      }
+      const allDonors = await appDataSource.createQueryBuilder().select("donor").from(DonorEntity, "donor").where("dob like :dob", { dob: `%-${month}-${date}`.trim() }).getMany()
+      return allDonors
+    } catch (e) {
+      throw e
     }
   }
 }
