@@ -9,14 +9,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PaymentModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const donor_module_1 = require("../donor/donor.module");
+const payment_controller_1 = require("./payment.controller");
+const payment_entity_1 = require("./payment.entity");
+const payment_service_1 = require("./payment.service");
 let PaymentModule = class PaymentModule {
 };
 PaymentModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([DonorEntity, KycEntity])],
-        controllers: [DonorController],
-        providers: [DonorService],
-        exports: [DonorService]
+        imports: [typeorm_1.TypeOrmModule.forFeature([payment_entity_1.PaymentEntity]), donor_module_1.DonorModule],
+        controllers: [payment_controller_1.PaymentController],
+        providers: [payment_service_1.PaymentService]
     })
 ], PaymentModule);
 exports.PaymentModule = PaymentModule;

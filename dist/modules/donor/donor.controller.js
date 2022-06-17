@@ -31,6 +31,9 @@ let DonorController = class DonorController {
     async createDonor(createDonorDto) {
         return await this.donorService.createNewDonor(createDonorDto);
     }
+    async filterDonor() {
+        return await this.donorService.filterDonors();
+    }
 };
 __decorate([
     (0, common_1.Get)('api/donors'),
@@ -54,6 +57,12 @@ __decorate([
     __metadata("design:paramtypes", [createDonor_dto_1.CreateDonorDto]),
     __metadata("design:returntype", Promise)
 ], DonorController.prototype, "createDonor", null);
+__decorate([
+    (0, common_1.Get)('api/getDonorsByDob'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], DonorController.prototype, "filterDonor", null);
 DonorController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [donor_service_1.DonorService])

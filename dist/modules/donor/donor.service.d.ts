@@ -11,4 +11,5 @@ export declare class DonorService {
     createNewKyc(createKycDto: CreateKycDto): Promise<KycEntity>;
     createNewDonor(createDonorDto: CreateDonorDto): Promise<DonorEntity>;
     findUserByMobile(mobile: string): Promise<DonorEntity>;
+    filterDonors(): Promise<DonorEntity[]>;
 }

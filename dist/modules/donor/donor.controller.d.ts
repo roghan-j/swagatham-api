@@ -9,4 +9,5 @@ export declare class DonorController {
     getAllDonors(): Promise<DonorEntity[]>;
     createKyc(createKycDto: CreateKycDto): Promise<KycEntity>;
     createDonor(createDonorDto: CreateDonorDto): Promise<DonorEntity>;
+    filterDonor(): Promise<DonorEntity[]>;
 }
