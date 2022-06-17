@@ -26,4 +26,5 @@ export class DonationsController {
   async createNewDonation(@Body() createDonationDto: CreateDonationDto): Promise<DonationEntity> {
     return await this.donationService.createNewDonations(createDonationDto)
   }
+
 }

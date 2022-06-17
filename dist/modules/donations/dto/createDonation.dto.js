@@ -20,7 +20,6 @@ __decorate([
 ], CreateDonationDto.prototype, "mobile", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsAlphanumeric)(),
     __metadata("design:type", String)
 ], CreateDonationDto.prototype, "desc", void 0);
 __decorate([

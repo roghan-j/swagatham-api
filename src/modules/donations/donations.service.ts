@@ -65,6 +65,7 @@ export class DonationsService {
       return await this.donationRepository.save(donation)
     } catch (e) {
       console.log(e)
+      throw e
     }
   }
 
