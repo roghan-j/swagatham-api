@@ -17,4 +17,7 @@ export class PaymentEntity {
 
     @Column()
     order_id: string
+
+    @Column()
+    receipt: string
 }

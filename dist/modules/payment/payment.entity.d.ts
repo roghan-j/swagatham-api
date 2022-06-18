@@ -4,4 +4,5 @@ export declare class PaymentEntity {
     mobile: number;
     amount: number;
     order_id: string;
+    receipt: string;
 }

@@ -33,6 +33,10 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], PaymentEntity.prototype, "order_id", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], PaymentEntity.prototype, "receipt", void 0);
 PaymentEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'payments' })
 ], PaymentEntity);
