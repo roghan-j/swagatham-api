@@ -72,6 +72,8 @@ let DonorService = class DonorService {
             return await this.donorRepository.findOne({
                 where: {
                     mobile
+                }, relations: {
+                    "kyc": true
                 }
             });
         }

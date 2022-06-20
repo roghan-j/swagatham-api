@@ -85,7 +85,7 @@ export class DonationsService {
         throw new HttpException("No Existing User", HttpStatus.NOT_ACCEPTABLE)
       }
 
-      await this.donationRepository.save(donation)
+      // await this.donationRepository.save(donation)
 
       return this.buildPaymentInterface(donation)
     } catch (e) {
@@ -102,7 +102,7 @@ export class DonationsService {
     }
   }
 
-  buildPaymentInterface(donation: DonationEntity): PaymentInterface {
+  buildPaymentInterface(donation: DonationEntity): any {
     return {
       amount: donation.amount,
       name: donation.donor.name,

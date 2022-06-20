@@ -28,7 +28,7 @@ let DonationsController = class DonationsController {
         return await this.donationService.getRecentDonations();
     }
     async createNewDonation(createDonationDto) {
-        return await this.donationService.createNewDonations(createDonationDto);
+        return await this.donationService.createNewDonation(createDonationDto);
     }
 };
 __decorate([

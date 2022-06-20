@@ -27,9 +27,21 @@ __decorate([
     __metadata("design:type", Number)
 ], DonationEntity.prototype, "amount", void 0);
 __decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], DonationEntity.prototype, "order_id", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], DonationEntity.prototype, "receipt", void 0);
+__decorate([
     (0, typeorm_1.Column)({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], DonationEntity.prototype, "donatedAt", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Boolean)
+], DonationEntity.prototype, "completed", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => donor_entity_1.DonorEntity, donor => donor.mobile),
     __metadata("design:type", donor_entity_1.DonorEntity)
