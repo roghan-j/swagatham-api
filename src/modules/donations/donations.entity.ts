@@ -12,8 +12,17 @@ export class DonationEntity {
   @Column()
   amount: number
 
+  @Column()
+  order_id: string
+
+  @Column()
+  receipt: string
+
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   donatedAt: Date
+
+  @Column()
+  completed: boolean
 
   @ManyToOne(() => DonorEntity, donor => donor.mobile)
   donor: DonorEntity

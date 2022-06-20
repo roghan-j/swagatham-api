@@ -1,4 +1,4 @@
-import { CreatePaymentDto } from "./dto/createPayment.dto";
+import { CreatePaymentDto } from "../donations/dto/createPayment.dto";
 import { PaymentEntity } from "./payment.entity";
 import { PaymentService } from "./payment.service";
 export declare class PaymentController {

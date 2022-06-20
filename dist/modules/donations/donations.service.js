@@ -18,6 +18,7 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const donor_service_1 = require("../donor/donor.service");
 const donations_entity_1 = require("./donations.entity");
+const axios = require('axios');
 let DonationsService = class DonationsService {
     constructor(donationRepository, donorService) {
         this.donationRepository = donationRepository;
@@ -89,6 +90,28 @@ let DonationsService = class DonationsService {
             name: donation.donor.name,
             amount: donation.amount,
         };
+    }
+    async createNewPayment(createPaymentDto) {
+        const res = await axios.post('https://api.razorpay.com/v1/orders', {
+            "amount": createPaymentDto.amount * 100,
+            "currency": "INR",
+            "receipt": uuidv4(),
+            "partial_payment": true,
+            "first_payment_min_amount": 230
+        }, {
+            auth: {
+                username: process.env.RAZORPAY_KEY,
+                password: process.env.RAZORPAY_SECRET
+            }
+        });
+        const donor = await this.donorService.findUserByMobile(createPaymentDto.mobile.toString());
+        const payment = new PaymentEntity();
+        payment.name = donor.name;
+        payment.mobile = createPaymentDto.mobile;
+        payment.amount = createPaymentDto.amount;
+        payment.order_id = res.data.id;
+        payment.receipt = res.data.receipt;
+        return await this.paymentRepository.save(payment);
     }
 };
 DonationsService = __decorate([

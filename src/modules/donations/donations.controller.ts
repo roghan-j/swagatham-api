@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
 import { AuthGuard } from "src/guards/auth.guard";
 import { DonationInterface } from "src/types/donation.interface";
+import { PaymentInterface } from "src/types/payment.interface";
 import { DonationEntity } from "./donations.entity";
 import { DonationsService } from "./donations.service";
 import { CreateDonationDto } from "./dto/createDonation.dto";
@@ -21,9 +22,9 @@ export class DonationsController {
     return await this.donationService.getRecentDonations()
   }
 
-  @Post('api/donation')
+  @Post('api/payment')
   @UsePipes(new ValidationPipe())
-  async createNewDonation(@Body() createDonationDto: CreateDonationDto): Promise<DonationEntity> {
-    return await this.donationService.createNewDonations(createDonationDto)
+  async createNewDonation(@Body() createDonationDto: CreateDonationDto): Promise<PaymentInterface> {
+    return await this.donationService.createNewDonation(createDonationDto)
   }
 }
