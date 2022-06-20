@@ -28,7 +28,7 @@ let DonationsController = class DonationsController {
         return await this.donationService.getRecentDonations();
     }
     async createNewDonation(createDonationDto) {
-        return await this.donationService.createNewDonations(createDonationDto);
+        return await this.donationService.createNewDonation(createDonationDto);
     }
 };
 __decorate([
@@ -46,7 +46,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], DonationsController.prototype, "getRecentDonations", null);
 __decorate([
-    (0, common_1.Post)('api/donation'),
+    (0, common_1.Post)('api/payment'),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),

@@ -1,5 +1,5 @@
 export interface DonationInterface {
-    id: number;
+    id: string;
     name: string;
     amount: number;
 }

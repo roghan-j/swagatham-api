@@ -1,5 +1,5 @@
 import { DonationInterface } from "src/types/donation.interface";
-import { DonationEntity } from "./donations.entity";
+import { PaymentInterface } from "src/types/payment.interface";
 import { DonationsService } from "./donations.service";
 import { CreateDonationDto } from "./dto/createDonation.dto";
 export declare class DonationsController {
@@ -7,5 +7,5 @@ export declare class DonationsController {
     constructor(donationService: DonationsService);
     getTopDonations(): Promise<DonationInterface[]>;
     getRecentDonations(): Promise<DonationInterface[]>;
-    createNewDonation(createDonationDto: CreateDonationDto): Promise<DonationEntity>;
+    createNewDonation(createDonationDto: CreateDonationDto): Promise<PaymentInterface>;
 }

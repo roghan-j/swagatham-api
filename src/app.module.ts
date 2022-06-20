@@ -8,7 +8,6 @@ import { AdminModule } from './modules/admin/admin.module';
 import { AuthMiddleware } from './middlewares/auth.middleware';
 import { DonorModule } from './modules/donor/donor.module';
 import { DonationsModule } from './modules/donations/donations.module';
-import { PaymentModule } from './modules/payment/payment.module';
 
 
 @Module({
@@ -27,8 +26,7 @@ import { PaymentModule } from './modules/payment/payment.module';
     }),
     AdminModule,
     DonorModule,
-    DonationsModule,
-    PaymentModule
+    DonationsModule
   ],
   controllers: [AppController],
   providers: [AppService],
