@@ -16,6 +16,12 @@ export class DonorController {
     return await this.donorService.getAllDonors()
   }
 
+  @Get('api/sendMessage')
+  @UseGuards(AuthGuard)
+  async sendMessage() {
+    await this.donorService.sendMessage()
+  }
+
   @Post('api/kyc')
   @UsePipes(new ValidationPipe())
   async createKyc(@Body() createKycDto: CreateKycDto): Promise<KycEntity> {

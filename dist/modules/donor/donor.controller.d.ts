@@ -7,6 +7,8 @@ export declare class DonorController {
     private readonly donorService;
     constructor(donorService: DonorService);
     getAllDonors(): Promise<DonorEntity[]>;
+    sendMessage(): Promise<void>;
     createKyc(createKycDto: CreateKycDto): Promise<KycEntity>;
     createDonor(createDonorDto: CreateDonorDto): Promise<DonorEntity>;
+    filterDonor(): Promise<DonorEntity[]>;
 }

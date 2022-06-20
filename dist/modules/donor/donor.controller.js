@@ -25,11 +25,17 @@ let DonorController = class DonorController {
     async getAllDonors() {
         return await this.donorService.getAllDonors();
     }
+    async sendMessage() {
+        await this.donorService.sendMessage();
+    }
     async createKyc(createKycDto) {
         return await this.donorService.createNewKyc(createKycDto);
     }
     async createDonor(createDonorDto) {
         return await this.donorService.createNewDonor(createDonorDto);
+    }
+    async filterDonor() {
+        return await this.donorService.filterDonors();
     }
 };
 __decorate([
@@ -39,6 +45,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], DonorController.prototype, "getAllDonors", null);
+__decorate([
+    (0, common_1.Get)('api/sendMessage'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], DonorController.prototype, "sendMessage", null);
 __decorate([
     (0, common_1.Post)('api/kyc'),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
@@ -54,6 +67,12 @@ __decorate([
     __metadata("design:paramtypes", [createDonor_dto_1.CreateDonorDto]),
     __metadata("design:returntype", Promise)
 ], DonorController.prototype, "createDonor", null);
+__decorate([
+    (0, common_1.Get)('api/getDonorsByDob'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], DonorController.prototype, "filterDonor", null);
 DonorController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [donor_service_1.DonorService])

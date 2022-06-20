@@ -11,6 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DonorService = void 0;
 const common_1 = require("@nestjs/common");
@@ -18,6 +21,8 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const donor_entity_1 = require("./donor.entity");
 const kyc_entity_1 = require("./kyc.entity");
+const datasource_1 = __importDefault(require("../../datasource"));
+const messageSender_1 = __importDefault(require("./components/messageSender"));
 let DonorService = class DonorService {
     constructor(donorRepository, kycRepository) {
         this.donorRepository = donorRepository;
@@ -69,6 +74,32 @@ let DonorService = class DonorService {
                     mobile
                 }
             });
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+    async filterDonors() {
+        try {
+            const today = new Date();
+            let date = today.getDate().toString();
+            let month = (today.getMonth() + 1).toString();
+            if (month.length === 1) {
+                month = "0" + month;
+            }
+            if (date.length === 1) {
+                date = "0" + date;
+            }
+            const allDonors = await datasource_1.default.createQueryBuilder().select("donor").from(donor_entity_1.DonorEntity, "donor").where("dob like :dob", { dob: `%-${"12"}-${"26"}`.trim() }).getMany();
+            return allDonors;
+        }
+        catch (e) {
+            throw e;
+        }
+    }
+    async sendMessage() {
+        try {
+            await (0, messageSender_1.default)();
         }
         catch (e) {
             console.log(e);
