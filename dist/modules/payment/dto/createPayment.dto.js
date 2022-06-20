@@ -9,23 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateDonationDto = void 0;
+exports.CreatePaymentDto = void 0;
 const class_validator_1 = require("class-validator");
-class CreateDonationDto {
+class CreatePaymentDto {
 }
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsMobilePhone)(),
-    __metadata("design:type", String)
-], CreateDonationDto.prototype, "mobile", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], CreateDonationDto.prototype, "desc", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsNumberString)(),
     __metadata("design:type", Number)
-], CreateDonationDto.prototype, "amount", void 0);
-exports.CreateDonationDto = CreateDonationDto;
-//# sourceMappingURL=createDonation.dto.js.map
+], CreatePaymentDto.prototype, "mobile", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Number)
+], CreatePaymentDto.prototype, "amount", void 0);
+exports.CreatePaymentDto = CreatePaymentDto;
+//# sourceMappingURL=createPayment.dto.js.map

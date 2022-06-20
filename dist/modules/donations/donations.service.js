@@ -80,6 +80,7 @@ let DonationsService = class DonationsService {
         }
         catch (e) {
             console.log(e);
+            throw e;
         }
     }
     buildDonationInterface(donation) {

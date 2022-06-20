@@ -20,6 +20,7 @@ const admin_module_1 = require("./modules/admin/admin.module");
 const auth_middleware_1 = require("./middlewares/auth.middleware");
 const donor_module_1 = require("./modules/donor/donor.module");
 const donations_module_1 = require("./modules/donations/donations.module");
+const payment_module_1 = require("./modules/payment/payment.module");
 let AppModule = class AppModule {
     constructor(dataSource) {
         this.dataSource = dataSource;
@@ -48,7 +49,8 @@ AppModule = __decorate([
             }),
             admin_module_1.AdminModule,
             donor_module_1.DonorModule,
-            donations_module_1.DonationsModule
+            donations_module_1.DonationsModule,
+            payment_module_1.PaymentModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

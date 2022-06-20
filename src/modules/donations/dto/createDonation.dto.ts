@@ -1,4 +1,4 @@
-import { IsAlphanumeric, IsMobilePhone, IsNotEmpty, IsNumberString } from "class-validator"
+import { IsAlphanumeric, IsMobilePhone, IsNotEmpty, IsNumberString, IsString } from "class-validator"
 
 export class CreateDonationDto {
   @IsNotEmpty()
@@ -6,7 +6,6 @@ export class CreateDonationDto {
   readonly mobile: string
 
   @IsNotEmpty()
-  @IsAlphanumeric()
   readonly desc: string
 
   @IsNotEmpty()
