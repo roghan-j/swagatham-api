@@ -18,7 +18,7 @@ export class KycEntity {
   @Column()
   m_status: string
 
-  @Column({ type:'date' })
+  @Column({ type: 'date' })
   dob: Date
 
   @Column()

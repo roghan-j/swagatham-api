@@ -68,6 +68,31 @@ export class DonorService {
     }
   }
 
+  async fetchUserIds(): Promise<DonorEntity[]> {
+    try {
+      const ids = await this.donorRepository.find({
+        select: [
+          "id"
+        ]
+      })
+      return ids
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  async getKyc(id: number): Promise<KycEntity> {
+    try {
+      return await this.kycRepository.findOne({
+        where: {
+          id
+        }
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   async filterDonors(): Promise<DonorEntity[]> {
     try {
       const today = new Date();
@@ -86,9 +111,11 @@ export class DonorService {
     }
   }
 
-  async sendMessage(): Promise<any> {
+  async sendMessage() {
     try {
-      await messageSender()
+      const donors = await this.filterDonors()
+      await messageSender(donors)
+      return true
     } catch (e) {
       console.log(e)
     }
