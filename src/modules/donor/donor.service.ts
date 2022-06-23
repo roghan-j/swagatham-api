@@ -75,6 +75,7 @@ export class DonorService {
           "id"
         ]
       })
+      console.log(ids)
       return ids
     } catch (e) {
       console.log(e)

@@ -1,3 +1,7 @@
+import { Repository } from 'typeorm';
+import { LogEntity } from './log.entity';
 export declare class AppService {
-    getHello(): string;
+    private readonly logRepository;
+    constructor(logRepository: Repository<LogEntity>);
+    returnLogs(): Promise<LogEntity[]>;
 }

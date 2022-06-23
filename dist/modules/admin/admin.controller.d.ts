@@ -4,9 +4,11 @@ import { AdminService } from "./admin.service";
 import { LoginAdminDto } from "./dto/loginAdmin.dto";
 import { CreateAdminDto } from "./dto/createAdmin.dto";
 import { ExpressRequest } from "src/types/ExpressRequest.interface";
+import { Logger } from 'winston';
 export declare class AdminController {
     private readonly adminService;
-    constructor(adminService: AdminService);
-    login(loginAdminDto: LoginAdminDto): Promise<AdminInterface>;
+    private readonly logger;
+    constructor(adminService: AdminService, logger: Logger);
+    login(req: ExpressRequest, loginAdminDto: LoginAdminDto): Promise<AdminInterface>;
     createNewAdmin(createAdminDto: CreateAdminDto, req: ExpressRequest): Promise<AdminEntity>;
 }

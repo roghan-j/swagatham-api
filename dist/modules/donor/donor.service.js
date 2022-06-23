@@ -88,6 +88,7 @@ let DonorService = class DonorService {
                     "id"
                 ]
             });
+            console.log(ids);
             return ids;
         }
         catch (e) {

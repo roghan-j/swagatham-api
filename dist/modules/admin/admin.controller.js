@@ -19,14 +19,18 @@ const notAuth_guard_1 = require("../../guards/notAuth.guard");
 const admin_service_1 = require("./admin.service");
 const loginAdmin_dto_1 = require("./dto/loginAdmin.dto");
 const createAdmin_dto_1 = require("./dto/createAdmin.dto");
+const nest_winston_1 = require("nest-winston");
 let AdminController = class AdminController {
-    constructor(adminService) {
+    constructor(adminService, logger) {
         this.adminService = adminService;
+        this.logger = logger;
     }
-    async login(loginAdminDto) {
+    async login(req, loginAdminDto) {
+        this.logger.info({ message: "Login Requested", requestedBy: req.admin });
         return await this.adminService.login(loginAdminDto);
     }
     async createNewAdmin(createAdminDto, req) {
+        this.logger.info("login requested");
         return await this.adminService.createNewAdmin(createAdminDto, req);
     }
 };
@@ -34,9 +38,10 @@ __decorate([
     (0, common_1.Post)('api/login'),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     (0, common_1.UseGuards)(notAuth_guard_1.NotAuthGuard),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [loginAdmin_dto_1.LoginAdminDto]),
+    __metadata("design:paramtypes", [Object, loginAdmin_dto_1.LoginAdminDto]),
     __metadata("design:returntype", Promise)
 ], AdminController.prototype, "login", null);
 __decorate([
@@ -51,7 +56,8 @@ __decorate([
 ], AdminController.prototype, "createNewAdmin", null);
 AdminController = __decorate([
     (0, common_1.Controller)(),
-    __metadata("design:paramtypes", [admin_service_1.AdminService])
+    __param(1, (0, common_1.Inject)(nest_winston_1.WINSTON_MODULE_PROVIDER)),
+    __metadata("design:paramtypes", [admin_service_1.AdminService, Object])
 ], AdminController);
 exports.AdminController = AdminController;
 //# sourceMappingURL=admin.controller.js.map

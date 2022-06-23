@@ -16,6 +16,7 @@ export class AdminService {
 
   async login(loginAdminDto: LoginAdminDto): Promise<AdminInterface> {
     try {
+      // console.log(loginAdminDto)
       const admin = await this.adminRepository.findOne({
         where: {
           phone: loginAdminDto.phone
@@ -26,12 +27,12 @@ export class AdminService {
           "password"
         ]
       })
-      // console.log(admin)
+      console.log(admin)
       if (!admin)
         throw new HttpException("Invalid Credentials", HttpStatus.BAD_REQUEST)
       const isMatch = await bcrypt.compare(loginAdminDto.password.trim(), admin.password.trim())
       delete admin.password
-      // console.log(isMatch)
+      console.log(isMatch)
       if (isMatch) {
         const token = jwt.sign({
           id: admin.id,

@@ -1,13 +1,13 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
+import { AuthGuard } from './guards/auth.guard';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) { }
 
-  @Get()
-  getHello(): string {
-    console.log(process.env.DB_USER)
-    return this.appService.getHello();
+  @Get('/api/logs')
+  async returnLogs() {
+    return await this.appService.returnLogs()
   }
 }

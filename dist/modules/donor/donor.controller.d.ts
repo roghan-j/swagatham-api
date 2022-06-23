@@ -9,7 +9,7 @@ export declare class DonorController {
     getAllDonors(): Promise<DonorEntity[]>;
     sendMessage(): Promise<boolean>;
     fetchUserIds(): Promise<DonorEntity[]>;
-    getKyc(id: number): Promise<KycEntity>;
+    getKyc(query: any): Promise<KycEntity>;
     createKyc(createKycDto: CreateKycDto): Promise<KycEntity>;
     createDonor(createDonorDto: CreateDonorDto): Promise<DonorEntity>;
     filterDonor(): Promise<DonorEntity[]>;

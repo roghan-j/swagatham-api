@@ -31,8 +31,9 @@ let DonorController = class DonorController {
     async fetchUserIds() {
         return await this.donorService.fetchUserIds();
     }
-    async getKyc(id) {
-        return await this.donorService.getKyc(id);
+    async getKyc(query) {
+        console.log(query);
+        return await this.donorService.getKyc(query.id);
     }
     async createKyc(createKycDto) {
         return await this.donorService.createNewKyc(createKycDto);
@@ -65,10 +66,10 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], DonorController.prototype, "fetchUserIds", null);
 __decorate([
-    (0, common_1.Get)('api/kyc/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)('api/getKyc'),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], DonorController.prototype, "getKyc", null);
 __decorate([
