@@ -1,4 +1,5 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Post, UseGuards, Query } from '@nestjs/common';
+// import { Query } from 'typeorm/driver/Query';
 import { AppService } from './app.service';
 import { AuthGuard } from './guards/auth.guard';
 
@@ -7,7 +8,7 @@ export class AppController {
   constructor(private readonly appService: AppService) { }
 
   @Get('/api/logs')
-  async returnLogs() {
-    return await this.appService.returnLogs()
+  async returnLogs(@Query() query) {
+    return await this.appService.returnLogs(query)
   }
 }

@@ -11,18 +11,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
+const datasource_1 = __importDefault(require("./datasource"));
 const log_entity_1 = require("./log.entity");
 let AppService = class AppService {
     constructor(logRepository) {
         this.logRepository = logRepository;
     }
-    async returnLogs() {
-        const logs = await this.logRepository.find();
+    async returnLogs(query) {
+        const start = query.startDate + " 00:00:00";
+        const end = query.endDate + " 23:59:59";
+        const logs = await datasource_1.default.createQueryBuilder().select("log").from(log_entity_1.LogEntity, "log").where("timestamp >= :start and timestamp < :end", { start, end }).getMany();
+        console.log(logs);
         return logs;
     }
 };

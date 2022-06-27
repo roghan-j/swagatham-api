@@ -12,6 +12,7 @@ import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston'
 import MySQLTransport from 'winston-mysql'
 import { LogEntity } from './log.entity';
+import { BlogModule } from './modules/blog/blog.module';
 
 
 @Module({
@@ -32,6 +33,7 @@ import { LogEntity } from './log.entity';
     AdminModule,
     DonorModule,
     DonationsModule,
+    BlogModule,
     WinstonModule.forRoot({
       level: 'info',
       format: winston.format.combine(winston.format.timestamp(), winston.format.json()),

@@ -8,8 +8,11 @@ import { LogEntity } from './log.entity';
 export class AppService {
   constructor(@InjectRepository(LogEntity) private readonly logRepository: Repository<LogEntity>) { }
 
-  async returnLogs(): Promise<LogEntity[]> {
-    const logs = await this.logRepository.find()
+  async returnLogs(query): Promise<LogEntity[]> {
+    const start = query.startDate + " 00:00:00"
+    const end = query.endDate + " 23:59:59"
+    const logs = await appDataSource.createQueryBuilder().select("log").from(LogEntity, "log").where("timestamp >= :start and timestamp < :end", { start, end }).getMany()
+    console.log(logs)
     return logs
   }
 

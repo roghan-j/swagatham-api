@@ -12,27 +12,20 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppController = void 0;
+exports.BlogService = void 0;
 const common_1 = require("@nestjs/common");
-const app_service_1 = require("./app.service");
-let AppController = class AppController {
-    constructor(appService) {
-        this.appService = appService;
-    }
-    async returnLogs(query) {
-        return await this.appService.returnLogs(query);
+const typeorm_1 = require("@nestjs/typeorm");
+const typeorm_2 = require("typeorm");
+const blog_entity_1 = require("./blog.entity");
+let BlogService = class BlogService {
+    constructor(blogRepository) {
+        this.blogRepository = blogRepository;
     }
 };
-__decorate([
-    (0, common_1.Get)('/api/logs'),
-    __param(0, (0, common_1.Query)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], AppController.prototype, "returnLogs", null);
-AppController = __decorate([
-    (0, common_1.Controller)(),
-    __metadata("design:paramtypes", [app_service_1.AppService])
-], AppController);
-exports.AppController = AppController;
-//# sourceMappingURL=app.controller.js.map
+BlogService = __decorate([
+    (0, common_1.Injectable)(),
+    __param(0, (0, typeorm_1.InjectRepository)(blog_entity_1.BlogEntity)),
+    __metadata("design:paramtypes", [typeorm_2.Repository])
+], BlogService);
+exports.BlogService = BlogService;
+//# sourceMappingURL=blog.service.js.map
