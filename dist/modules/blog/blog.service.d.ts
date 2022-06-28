@@ -1,4 +1,3 @@
-/// <reference types="multer" />
 import { ExpressRequest } from "src/types/ExpressRequest.interface";
 import { Repository } from "typeorm";
 import { BlogEntity } from "./blog.entity";

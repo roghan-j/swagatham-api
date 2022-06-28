@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DonationsController = void 0;
 const common_1 = require("@nestjs/common");
@@ -18,6 +19,7 @@ const auth_guard_1 = require("../../guards/auth.guard");
 const donations_service_1 = require("./donations.service");
 const createDonation_dto_1 = require("./dto/createDonation.dto");
 const nest_winston_1 = require("nest-winston");
+const winston_1 = require("winston");
 let DonationsController = class DonationsController {
     constructor(donationService, logger) {
         this.donationService = donationService;
@@ -58,7 +60,7 @@ __decorate([
 DonationsController = __decorate([
     (0, common_1.Controller)(),
     __param(1, (0, common_1.Inject)(nest_winston_1.WINSTON_MODULE_PROVIDER)),
-    __metadata("design:paramtypes", [donations_service_1.DonationsService, Object])
+    __metadata("design:paramtypes", [donations_service_1.DonationsService, typeof (_a = typeof winston_1.Logger !== "undefined" && winston_1.Logger) === "function" ? _a : Object])
 ], DonationsController);
 exports.DonationsController = DonationsController;
 //# sourceMappingURL=donations.controller.js.map
