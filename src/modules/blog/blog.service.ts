@@ -4,6 +4,7 @@ import { query } from "express";
 import { ExpressRequest } from "src/types/ExpressRequest.interface";
 import { Repository } from "typeorm";
 import { BlogEntity } from "./blog.entity";
+import { UpdateBlogDto } from "./dto/updateBlog.dto";
 
 @Injectable()
 export class BlogService {
@@ -25,6 +26,9 @@ export class BlogService {
   async getSlugs(): Promise<BlogEntity[]> {
     try {
       return await this.blogRepository.find({
+        where: {
+          draft: true
+        },
         select: ["slug"]
       })
     } catch (e) {
@@ -42,7 +46,8 @@ export class BlogService {
           "id",
           "content",
           "title",
-          "image"
+          "image",
+          "slug"
         ],
         relations: {
           author: true
@@ -50,6 +55,37 @@ export class BlogService {
       })
       console.log(res)
       return res
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  async getDrafts(): Promise<BlogEntity[]> {
+    try {
+      return await this.blogRepository.find({
+        where: {
+          draft: true
+        },
+        relations: {
+          author: true
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async updateBlog(updateBlogDto: UpdateBlogDto): Promise<BlogEntity> {
+    try {
+      const blog = await this.blogRepository.findOne({
+        where: {
+          slug: updateBlogDto.slug
+        }
+      })
+      blog.content = updateBlogDto.content
+      blog.draft = updateBlogDto.draft
+      // console.log(blog)
+      return await this.blogRepository.save(blog)
     } catch (e) {
       console.log(e)
     }

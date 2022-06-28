@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
 const auth_guard_1 = require("../../guards/auth.guard");
 const blog_service_1 = require("./blog.service");
+const updateBlog_dto_1 = require("./dto/updateBlog.dto");
 let BlogController = class BlogController {
     constructor(blogService) {
         this.blogService = blogService;
@@ -27,8 +28,14 @@ let BlogController = class BlogController {
     async getBlog(query) {
         return await this.blogService.getBlog(query);
     }
+    async getDrafts() {
+        return await this.blogService.getDrafts();
+    }
     async createBlog(req, file, createBlogDto) {
         return await this.blogService.createBlog(req, file, createBlogDto.title);
+    }
+    async updateBlog(updateBlogDto) {
+        return await this.blogService.updateBlog(updateBlogDto);
     }
 };
 __decorate([
@@ -45,6 +52,12 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], BlogController.prototype, "getBlog", null);
 __decorate([
+    (0, common_1.Get)('api/getdrafts'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], BlogController.prototype, "getDrafts", null);
+__decorate([
     (0, common_1.Post)('api/createblog'),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file')),
@@ -55,6 +68,15 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object, Object]),
     __metadata("design:returntype", Promise)
 ], BlogController.prototype, "createBlog", null);
+__decorate([
+    (0, common_1.Post)('api/updateblog'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [updateBlog_dto_1.UpdateBlogDto]),
+    __metadata("design:returntype", Promise)
+], BlogController.prototype, "updateBlog", null);
 BlogController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [blog_service_1.BlogService])
