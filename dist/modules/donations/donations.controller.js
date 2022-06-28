@@ -17,9 +17,11 @@ const common_1 = require("@nestjs/common");
 const auth_guard_1 = require("../../guards/auth.guard");
 const donations_service_1 = require("./donations.service");
 const createDonation_dto_1 = require("./dto/createDonation.dto");
+const nest_winston_1 = require("nest-winston");
 let DonationsController = class DonationsController {
-    constructor(donationService) {
+    constructor(donationService, logger) {
         this.donationService = donationService;
+        this.logger = logger;
     }
     async getTopDonations() {
         return await this.donationService.getTopDonations();
@@ -55,7 +57,8 @@ __decorate([
 ], DonationsController.prototype, "createNewDonation", null);
 DonationsController = __decorate([
     (0, common_1.Controller)(),
-    __metadata("design:paramtypes", [donations_service_1.DonationsService])
+    __param(1, (0, common_1.Inject)(nest_winston_1.WINSTON_MODULE_PROVIDER)),
+    __metadata("design:paramtypes", [donations_service_1.DonationsService, Object])
 ], DonationsController);
 exports.DonationsController = DonationsController;
 //# sourceMappingURL=donations.controller.js.map

@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Post, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, UseGuards, UsePipes, ValidationPipe, Query } from "@nestjs/common";
+import { query } from "express";
 import { AuthGuard } from "src/guards/auth.guard";
 import { DonorEntity } from "./donor.entity";
 import { DonorService } from "./donor.service";
@@ -18,8 +19,19 @@ export class DonorController {
 
   @Get('api/sendMessage')
   @UseGuards(AuthGuard)
-  async sendMessage() {
-    await this.donorService.sendMessage()
+  async sendMessage(): Promise<boolean> {
+    return await this.donorService.sendMessage()
+  }
+
+  @Get('api/getUserIds')
+  async fetchUserIds(): Promise<DonorEntity[]> {
+    return await this.donorService.fetchUserIds()
+  }
+
+  @Get('api/getKyc')
+  async getKyc(@Query() query) {
+    // console.log(query)
+    return await this.donorService.getKyc(query.id)
   }
 
   @Post('api/kyc')

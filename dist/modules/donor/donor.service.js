@@ -81,6 +81,32 @@ let DonorService = class DonorService {
             console.log(e);
         }
     }
+    async fetchUserIds() {
+        try {
+            const ids = await this.donorRepository.find({
+                select: [
+                    "id"
+                ]
+            });
+            console.log(ids);
+            return ids;
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+    async getKyc(id) {
+        try {
+            return await this.kycRepository.findOne({
+                where: {
+                    id
+                }
+            });
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
     async filterDonors() {
         try {
             const today = new Date();
@@ -101,7 +127,9 @@ let DonorService = class DonorService {
     }
     async sendMessage() {
         try {
-            await (0, messageSender_1.default)();
+            const donors = await this.filterDonors();
+            await (0, messageSender_1.default)(donors);
+            return true;
         }
         catch (e) {
             console.log(e);

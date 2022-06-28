@@ -54,11 +54,7 @@ let DonationsService = class DonationsService {
                     donatedAt: "DESC",
                 }, relations: {
                     donor: true
-                }, select: [
-                    "id",
-                    "amount",
-                    "donor"
-                ]
+                }
             });
             let donationInterface = [];
             donations.map(donation => {

@@ -39,16 +39,14 @@ export class DonationsService {
           donatedAt: "DESC",
         }, relations: {
           donor: true
-        }, select: [
-          "id",
-          "amount",
-          "donor"
-        ]
+        }
       })
+      // console.log(donations)
       let donationInterface = []
       donations.map(donation => {
         donationInterface.push(this.buildDonationInterface(donation))
       })
+      // console.log(donationInterface)
       return donationInterface
     } catch (e) {
       console.log(e)
