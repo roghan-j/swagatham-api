@@ -43,6 +43,9 @@ let DonorController = class DonorController {
     async filterDonor() {
         return await this.donorService.filterDonors();
     }
+    async checkDonor(checkDonorDto) {
+        return await this.donorService.checkDonor(checkDonorDto.phone);
+    }
 };
 __decorate([
     (0, common_1.Get)('api/donors'),
@@ -92,6 +95,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], DonorController.prototype, "filterDonor", null);
+__decorate([
+    (0, common_1.Post)('api/checkdonor'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], DonorController.prototype, "checkDonor", null);
 DonorController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [donor_service_1.DonorService])

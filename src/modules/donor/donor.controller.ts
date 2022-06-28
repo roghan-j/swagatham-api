@@ -49,4 +49,9 @@ export class DonorController {
   async filterDonor() {
     return await this.donorService.filterDonors()
   }
+
+  @Post('api/checkdonor')
+  async checkDonor(@Body() checkDonorDto): Promise<boolean> {
+    return await this.donorService.checkDonor(checkDonorDto.phone)
+  }
 }

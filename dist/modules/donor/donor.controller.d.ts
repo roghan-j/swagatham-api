@@ -13,4 +13,5 @@ export declare class DonorController {
     createKyc(createKycDto: CreateKycDto): Promise<KycEntity>;
     createDonor(createDonorDto: CreateDonorDto): Promise<DonorEntity>;
     filterDonor(): Promise<DonorEntity[]>;
+    checkDonor(checkDonorDto: any): Promise<boolean>;
 }
