@@ -15,4 +15,5 @@ export declare class DonorService {
     getKyc(id: number): Promise<KycEntity>;
     filterDonors(): Promise<DonorEntity[]>;
     sendMessage(): Promise<boolean>;
+    checkDonor(mobile: string): Promise<boolean>;
 }

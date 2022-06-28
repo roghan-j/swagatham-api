@@ -121,4 +121,20 @@ export class DonorService {
       console.log(e)
     }
   }
+
+  async checkDonor(mobile: string): Promise<boolean> {
+    try {
+      const donor = await this.donorRepository.findOne({
+        where: {
+          mobile
+        }
+      })
+      if (donor) {
+        return true
+      }
+    } catch (e) {
+      console.log(e)
+      throw e
+    }
+  }
 }
