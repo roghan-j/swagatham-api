@@ -21,6 +21,52 @@ let BlogService = class BlogService {
     constructor(blogRepository) {
         this.blogRepository = blogRepository;
     }
+    async createBlog(req, file, title) {
+        const newBlog = new blog_entity_1.BlogEntity();
+        newBlog.image = file.buffer;
+        newBlog.title = title;
+        newBlog.content = "";
+        newBlog.author = req.admin;
+        try {
+            return await this.blogRepository.save(newBlog);
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+    async getSlugs() {
+        try {
+            return await this.blogRepository.find({
+                select: ["slug"]
+            });
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+    async getBlog(query) {
+        try {
+            const res = await this.blogRepository.findOne({
+                where: {
+                    slug: query.slug
+                },
+                select: [
+                    "id",
+                    "content",
+                    "title",
+                    "image"
+                ],
+                relations: {
+                    author: true
+                }
+            });
+            console.log(res);
+            return res;
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
 };
 BlogService = __decorate([
     (0, common_1.Injectable)(),

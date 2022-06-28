@@ -32,7 +32,6 @@ let DonorController = class DonorController {
         return await this.donorService.fetchUserIds();
     }
     async getKyc(query) {
-        console.log(query);
         return await this.donorService.getKyc(query.id);
     }
     async createKyc(createKycDto) {

@@ -30,7 +30,7 @@ export class DonorController {
 
   @Get('api/getKyc')
   async getKyc(@Query() query) {
-    console.log(query)
+    // console.log(query)
     return await this.donorService.getKyc(query.id)
   }
 

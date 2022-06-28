@@ -1,7 +1,12 @@
+/// <reference types="node" />
+import { AdminEntity } from "../admin/admin.entity";
 export declare class BlogEntity {
     id: number;
-    author: string;
     title: string;
     content: string;
-    image: string;
+    image: Buffer;
+    draft: boolean;
+    slug: string;
+    author: AdminEntity;
+    slugify(): void;
 }

@@ -50,6 +50,7 @@ const nest_winston_1 = require("nest-winston");
 const winston = __importStar(require("winston"));
 const winston_mysql_1 = __importDefault(require("winston-mysql"));
 const log_entity_1 = require("./log.entity");
+const blog_module_1 = require("./modules/blog/blog.module");
 let AppModule = class AppModule {
     constructor(dataSource) {
         this.dataSource = dataSource;
@@ -80,6 +81,7 @@ AppModule = __decorate([
             admin_module_1.AdminModule,
             donor_module_1.DonorModule,
             donations_module_1.DonationsModule,
+            blog_module_1.BlogModule,
             nest_winston_1.WinstonModule.forRoot({
                 level: 'info',
                 format: winston.format.combine(winston.format.timestamp(), winston.format.json()),

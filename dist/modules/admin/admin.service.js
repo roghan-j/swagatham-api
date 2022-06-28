@@ -40,12 +40,10 @@ let AdminService = class AdminService {
                     "password"
                 ]
             });
-            console.log(admin);
             if (!admin)
                 throw new common_1.HttpException("Invalid Credentials", common_1.HttpStatus.BAD_REQUEST);
             const isMatch = await bcrypt_1.default.compare(loginAdminDto.password.trim(), admin.password.trim());
             delete admin.password;
-            console.log(isMatch);
             if (isMatch) {
                 const token = jsonwebtoken_1.default.sign({
                     id: admin.id,

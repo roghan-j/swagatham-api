@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminEntity = void 0;
 const typeorm_1 = require("typeorm");
 const bcrypt_1 = require("bcrypt");
+const blog_entity_1 = require("../blog/blog.entity");
 let AdminEntity = class AdminEntity {
     async hashPassword() {
         this.password = await (0, bcrypt_1.hash)(this.password, 10);
@@ -37,6 +38,10 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], AdminEntity.prototype, "createdBy", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => blog_entity_1.BlogEntity, blog => blog.author),
+    __metadata("design:type", Array)
+], AdminEntity.prototype, "blogs", void 0);
 __decorate([
     (0, typeorm_1.BeforeInsert)(),
     __metadata("design:type", Function),

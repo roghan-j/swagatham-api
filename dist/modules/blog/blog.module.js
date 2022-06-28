@@ -9,7 +9,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BlogModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const blog_controller_1 = require("./blog.controller");
 const blog_entity_1 = require("./blog.entity");
+const blog_service_1 = require("./blog.service");
 let BlogModule = class BlogModule {
 };
 BlogModule = __decorate([
@@ -17,8 +19,8 @@ BlogModule = __decorate([
         imports: [
             typeorm_1.TypeOrmModule.forFeature([blog_entity_1.BlogEntity])
         ],
-        controllers: [],
-        providers: []
+        controllers: [blog_controller_1.BlogController],
+        providers: [blog_service_1.BlogService]
     })
 ], BlogModule);
 exports.BlogModule = BlogModule;

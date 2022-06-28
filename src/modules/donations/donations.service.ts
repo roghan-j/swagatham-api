@@ -46,7 +46,7 @@ export class DonationsService {
       donations.map(donation => {
         donationInterface.push(this.buildDonationInterface(donation))
       })
-      console.log(donationInterface)
+      // console.log(donationInterface)
       return donationInterface
     } catch (e) {
       console.log(e)
