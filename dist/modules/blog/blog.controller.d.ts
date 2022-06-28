@@ -1,3 +1,4 @@
+/// <reference types="multer" />
 import { ExpressRequest } from "src/types/ExpressRequest.interface";
 import { BlogEntity } from "./blog.entity";
 import { BlogService } from "./blog.service";
