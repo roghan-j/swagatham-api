@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminController = void 0;
 const common_1 = require("@nestjs/common");
@@ -21,7 +20,6 @@ const admin_service_1 = require("./admin.service");
 const loginAdmin_dto_1 = require("./dto/loginAdmin.dto");
 const createAdmin_dto_1 = require("./dto/createAdmin.dto");
 const nest_winston_1 = require("nest-winston");
-const winston_1 = require("winston");
 let AdminController = class AdminController {
     constructor(adminService, logger) {
         this.adminService = adminService;
@@ -59,7 +57,7 @@ __decorate([
 AdminController = __decorate([
     (0, common_1.Controller)(),
     __param(1, (0, common_1.Inject)(nest_winston_1.WINSTON_MODULE_PROVIDER)),
-    __metadata("design:paramtypes", [admin_service_1.AdminService, typeof (_a = typeof winston_1.Logger !== "undefined" && winston_1.Logger) === "function" ? _a : Object])
+    __metadata("design:paramtypes", [admin_service_1.AdminService, Object])
 ], AdminController);
 exports.AdminController = AdminController;
 //# sourceMappingURL=admin.controller.js.map
