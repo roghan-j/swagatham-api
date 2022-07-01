@@ -1,5 +1,6 @@
+/// <reference types="multer" />
 import { ExpressRequest } from "src/types/ExpressRequest.interface";
-import { Repository } from "typeorm";
+import { DeleteResult, Repository } from "typeorm";
 import { BlogEntity } from "./blog.entity";
 import { UpdateBlogDto } from "./dto/updateBlog.dto";
 export declare class BlogService {
@@ -9,5 +10,7 @@ export declare class BlogService {
     getSlugs(): Promise<BlogEntity[]>;
     getBlog(query: any): Promise<BlogEntity>;
     getDrafts(): Promise<BlogEntity[]>;
+    getPublished(): Promise<BlogEntity[]>;
     updateBlog(updateBlogDto: UpdateBlogDto): Promise<BlogEntity>;
+    deleteBlog(slug: any): Promise<DeleteResult>;
 }
