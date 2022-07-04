@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { DonorEntity } from "./donor.entity";
 
-@Entity()
+@Entity({ name: "family" })
 export class FamilyEntity {
   @PrimaryGeneratedColumn()
   id: number
@@ -19,4 +20,7 @@ export class FamilyEntity {
 
   @Column({ type: "date" })
   anniversary: Date
+
+  @ManyToOne(() => DonorEntity, donor => donor.family)
+  donor: DonorEntity
 }

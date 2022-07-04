@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FamilyEntity = void 0;
 const typeorm_1 = require("typeorm");
+const donor_entity_1 = require("./donor.entity");
 let FamilyEntity = class FamilyEntity {
 };
 __decorate([
@@ -30,15 +31,19 @@ __decorate([
     __metadata("design:type", String)
 ], FamilyEntity.prototype, "relation", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
+    (0, typeorm_1.Column)({ type: "date" }),
+    __metadata("design:type", Date)
 ], FamilyEntity.prototype, "dob", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
+    (0, typeorm_1.Column)({ type: "date" }),
+    __metadata("design:type", Date)
 ], FamilyEntity.prototype, "anniversary", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => donor_entity_1.DonorEntity, donor => donor.family),
+    __metadata("design:type", donor_entity_1.DonorEntity)
+], FamilyEntity.prototype, "donor", void 0);
 FamilyEntity = __decorate([
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)({ name: "family" })
 ], FamilyEntity);
 exports.FamilyEntity = FamilyEntity;
 //# sourceMappingURL=family.entity.js.map

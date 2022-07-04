@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DonorEntity = void 0;
 const typeorm_1 = require("typeorm");
 const donations_entity_1 = require("../donations/donations.entity");
+const family_entity_1 = require("./family.entity");
 const kyc_entity_1 = require("./kyc.entity");
 let DonorEntity = class DonorEntity {
 };
@@ -40,6 +41,10 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => donations_entity_1.DonationEntity, donation => donation.donor),
     __metadata("design:type", Array)
 ], DonorEntity.prototype, "donations", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => family_entity_1.FamilyEntity, family => family.donor),
+    __metadata("design:type", Array)
+], DonorEntity.prototype, "family", void 0);
 DonorEntity = __decorate([
     (0, typeorm_1.Entity)({ name: "donors" })
 ], DonorEntity);
