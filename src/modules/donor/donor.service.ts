@@ -129,8 +129,14 @@ export class DonorService {
           mobile
         }
       })
+
+      console.log(donor)
+      
       if (donor) {
         return true
+      }
+      else{
+        return false
       }
     } catch (e) {
       console.log(e)
