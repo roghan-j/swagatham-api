@@ -37,9 +37,6 @@ let BlogService = class BlogService {
     async getSlugs() {
         try {
             return await this.blogRepository.find({
-                where: {
-                    draft: true
-                },
                 select: ["slug"]
             });
         }
@@ -58,13 +55,13 @@ let BlogService = class BlogService {
                     "content",
                     "title",
                     "image",
-                    "slug"
+                    "slug",
+                    "draft"
                 ],
                 relations: {
                     author: true
                 }
             });
-            console.log(res);
             return res;
         }
         catch (e) {
@@ -86,6 +83,21 @@ let BlogService = class BlogService {
             console.log(error);
         }
     }
+    async getPublished() {
+        try {
+            return await this.blogRepository.find({
+                where: {
+                    draft: false
+                },
+                relations: {
+                    author: true
+                }
+            });
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
     async updateBlog(updateBlogDto) {
         try {
             const blog = await this.blogRepository.findOne({
@@ -96,6 +108,15 @@ let BlogService = class BlogService {
             blog.content = updateBlogDto.content;
             blog.draft = updateBlogDto.draft;
             return await this.blogRepository.save(blog);
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+    async deleteBlog(slug) {
+        try {
+            const blog = this.blogRepository.delete({ slug });
+            return blog;
         }
         catch (e) {
             console.log(e);

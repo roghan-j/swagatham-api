@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { query } from "express";
 import { ExpressRequest } from "src/types/ExpressRequest.interface";
-import { Repository } from "typeorm";
+import { DeleteResult, Repository } from "typeorm";
 import { BlogEntity } from "./blog.entity";
 import { UpdateBlogDto } from "./dto/updateBlog.dto";
 
@@ -26,9 +26,6 @@ export class BlogService {
   async getSlugs(): Promise<BlogEntity[]> {
     try {
       return await this.blogRepository.find({
-        where: {
-          draft: true
-        },
         select: ["slug"]
       })
     } catch (e) {
@@ -47,13 +44,14 @@ export class BlogService {
           "content",
           "title",
           "image",
-          "slug"
+          "slug",
+          "draft"
         ],
         relations: {
           author: true
         }
       })
-      console.log(res)
+      // console.log(res)
       return res
     } catch (e) {
       console.log(e)
@@ -75,6 +73,21 @@ export class BlogService {
     }
   }
 
+  async getPublished(): Promise<BlogEntity[]> {
+    try {
+      return await this.blogRepository.find({
+        where: {
+          draft: false
+        },
+        relations: {
+          author: true
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async updateBlog(updateBlogDto: UpdateBlogDto): Promise<BlogEntity> {
     try {
       const blog = await this.blogRepository.findOne({
@@ -86,6 +99,15 @@ export class BlogService {
       blog.draft = updateBlogDto.draft
       // console.log(blog)
       return await this.blogRepository.save(blog)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  async deleteBlog(slug): Promise<DeleteResult> {
+    try {
+      const blog = this.blogRepository.delete({ slug })
+      return blog
     } catch (e) {
       console.log(e)
     }

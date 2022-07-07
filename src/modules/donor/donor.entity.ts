@@ -1,5 +1,6 @@
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { DonationEntity } from "../donations/donations.entity";
+import { FamilyEntity } from "./family.entity";
 import { KycEntity } from "./kyc.entity";
 
 @Entity({ name: "donors" })
@@ -22,4 +23,7 @@ export class DonorEntity {
 
   @OneToMany(() => DonationEntity, donation => donation.donor)
   donations: DonationEntity[]
+
+  @OneToMany(() => FamilyEntity, family => family.donor)
+  family: FamilyEntity[]
 }

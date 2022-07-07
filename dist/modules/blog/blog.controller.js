@@ -31,6 +31,13 @@ let BlogController = class BlogController {
     async getDrafts() {
         return await this.blogService.getDrafts();
     }
+    async getPublished() {
+        return await this.blogService.getPublished();
+    }
+    async deleteblog(query) {
+        console.log(query);
+        return await this.blogService.deleteBlog(query.slug);
+    }
     async createBlog(req, file, createBlogDto) {
         return await this.blogService.createBlog(req, file, createBlogDto.title);
     }
@@ -57,6 +64,20 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], BlogController.prototype, "getDrafts", null);
+__decorate([
+    (0, common_1.Get)('api/getpublished'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], BlogController.prototype, "getPublished", null);
+__decorate([
+    (0, common_1.Get)('api/deleteblog'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    __param(0, (0, common_1.Query)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], BlogController.prototype, "deleteblog", null);
 __decorate([
     (0, common_1.Post)('api/createblog'),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),

@@ -1,4 +1,5 @@
 import { DonationEntity } from "../donations/donations.entity";
+import { FamilyEntity } from "./family.entity";
 import { KycEntity } from "./kyc.entity";
 export declare class DonorEntity {
     id: number;
@@ -7,4 +8,5 @@ export declare class DonorEntity {
     dob: Date;
     kyc: KycEntity;
     donations: DonationEntity[];
+    family: FamilyEntity[];
 }

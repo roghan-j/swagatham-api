@@ -3,6 +3,7 @@ import { DonorEntity } from "./donor.entity";
 import { CreateDonorDto } from "./dto/createDonor.dto";
 import { CreateKycDto } from "./dto/createKyc.dto";
 import { KycEntity } from "./kyc.entity";
+import { FamilyOccasionInterface } from "src/types/FamilyOccassion.interface";
 export declare class DonorService {
     private readonly donorRepository;
     private readonly kycRepository;
@@ -16,4 +17,5 @@ export declare class DonorService {
     filterDonors(): Promise<DonorEntity[]>;
     sendMessage(): Promise<boolean>;
     checkDonor(mobile: string): Promise<boolean>;
+    getFamilyData(): Promise<FamilyOccasionInterface[]>;
 }

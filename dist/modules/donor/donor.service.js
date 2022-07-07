@@ -23,6 +23,7 @@ const donor_entity_1 = require("./donor.entity");
 const kyc_entity_1 = require("./kyc.entity");
 const datasource_1 = __importDefault(require("../../datasource"));
 const messageSender_1 = __importDefault(require("./components/messageSender"));
+const family_entity_1 = require("./family.entity");
 let DonorService = class DonorService {
     constructor(donorRepository, kycRepository) {
         this.donorRepository = donorRepository;
@@ -153,6 +154,57 @@ let DonorService = class DonorService {
         catch (e) {
             console.log(e);
             throw e;
+        }
+    }
+    async getFamilyData() {
+        try {
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const familyDOB = await datasource_1.default.createQueryBuilder().select("family").from(family_entity_1.FamilyEntity, "family").where("dob >= :today and dob < :tomorrow", { today, tomorrow }).getMany();
+            const familyAnniversary = await datasource_1.default.createQueryBuilder().select("family").from(family_entity_1.FamilyEntity, "family").where("anniversary >= :today and anniversary < :tomorrow", { today, tomorrow }).getMany();
+            const familyOccasion = [];
+            familyDOB.map(member => {
+                familyOccasion.push({
+                    donor: member.donor.name,
+                    relation: member.relation,
+                    family_member: member.name,
+                    mobile: member.mobile,
+                    donorMobile: member.donor.mobile,
+                    dob: member.dob,
+                    anniversary: member.anniversary,
+                    occasion: "Birthday"
+                });
+            });
+            familyAnniversary.map(member => {
+                familyOccasion.push({
+                    donor: member.donor.name,
+                    relation: member.relation,
+                    family_member: member.name,
+                    mobile: member.mobile,
+                    donorMobile: member.donor.mobile,
+                    dob: member.dob,
+                    anniversary: member.anniversary,
+                    occasion: "Anniversary"
+                });
+            });
+            familyOccasion.sort((a, b) => {
+                if (a.donor < b.donor)
+                    return -1;
+                if (a.donor > b.donor)
+                    return 1;
+                if (a.donor == b.donor) {
+                    if (a.family_member < b.family_member)
+                        return -1;
+                    else
+                        return 1;
+                }
+                return 0;
+            });
+            return familyOccasion;
+        }
+        catch (e) {
+            console.log(e);
         }
     }
 };

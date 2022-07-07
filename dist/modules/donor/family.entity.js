@@ -9,44 +9,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DonorEntity = void 0;
+exports.FamilyEntity = void 0;
 const typeorm_1 = require("typeorm");
-const donations_entity_1 = require("../donations/donations.entity");
-const family_entity_1 = require("./family.entity");
-const kyc_entity_1 = require("./kyc.entity");
-let DonorEntity = class DonorEntity {
+const donor_entity_1 = require("./donor.entity");
+let FamilyEntity = class FamilyEntity {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], DonorEntity.prototype, "id", void 0);
+], FamilyEntity.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], DonorEntity.prototype, "name", void 0);
+], FamilyEntity.prototype, "name", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], DonorEntity.prototype, "mobile", void 0);
+], FamilyEntity.prototype, "mobile", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], FamilyEntity.prototype, "relation", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: "date" }),
     __metadata("design:type", Date)
-], DonorEntity.prototype, "dob", void 0);
+], FamilyEntity.prototype, "dob", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => kyc_entity_1.KycEntity),
-    (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", kyc_entity_1.KycEntity)
-], DonorEntity.prototype, "kyc", void 0);
+    (0, typeorm_1.Column)({ type: "date" }),
+    __metadata("design:type", Date)
+], FamilyEntity.prototype, "anniversary", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => donations_entity_1.DonationEntity, donation => donation.donor),
-    __metadata("design:type", Array)
-], DonorEntity.prototype, "donations", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => family_entity_1.FamilyEntity, family => family.donor),
-    __metadata("design:type", Array)
-], DonorEntity.prototype, "family", void 0);
-DonorEntity = __decorate([
-    (0, typeorm_1.Entity)({ name: "donors" })
-], DonorEntity);
-exports.DonorEntity = DonorEntity;
-//# sourceMappingURL=donor.entity.js.map
+    (0, typeorm_1.ManyToOne)(() => donor_entity_1.DonorEntity, donor => donor.family),
+    __metadata("design:type", donor_entity_1.DonorEntity)
+], FamilyEntity.prototype, "donor", void 0);
+FamilyEntity = __decorate([
+    (0, typeorm_1.Entity)({ name: "family" })
+], FamilyEntity);
+exports.FamilyEntity = FamilyEntity;
+//# sourceMappingURL=family.entity.js.map
