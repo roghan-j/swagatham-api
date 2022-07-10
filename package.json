@@ -23,7 +23,7 @@
     "db:drop": "npm run typeorm schema:drop",
     "db:create": "npm run typeorm migration:generate ./src/migrations/migration",
     "db:migrate": "npm run typeorm migration:run",
-    "postinstall": "npm run prestart:prod"
+    "postinstall": "npm run start:prod"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
